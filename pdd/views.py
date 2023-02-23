@@ -12,7 +12,7 @@ class QuestionListCrateAPIView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(
-            author=self.request.user.author
+            author=self.request.user.author,
         )
 
 
