@@ -24,9 +24,12 @@ def compress_image(img, file_format='webp', new_width=None, new_height=None ):
 
 
 class Question(models.Model):
+    questionNamber= models.IntegerField(unique=True, auto_created=True)
     text = models.CharField(max_length=255, verbose_name='Вопрос')
     image = models.ImageField(upload_to="photos", blank=True)
+    description = models.CharField(max_length=255)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
+
 
     def save(self, *args, **kwargs):
         self.image = compress_image(self.image, new_width=600)
