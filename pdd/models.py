@@ -27,7 +27,6 @@ class Question(models.Model):
     text = models.CharField(max_length=255, verbose_name='Вопрос')
     image = models.ImageField(upload_to="photos", blank=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    #answers = models.OneToMany('Answer', on_delete=models.CASCADE, field_name='text', to='answer')
 
     def save(self, *args, **kwargs):
         self.image = compress_image(self.image, new_width=600)
@@ -35,12 +34,6 @@ class Question(models.Model):
 
     def __str__(self):
         return self.text
-
-    def get_answer(self):
-        data = {}
-        answer = Answer.objects.filter(text=self).all()
-        data['ans'] = answer
-        return data
 
 
 class Answer(models.Model):
