@@ -24,32 +24,25 @@ def compress_image(img, file_format='webp', new_width=None, new_height=None ):
 
 
 class Question(models.Model):
-    questionNamber= models.IntegerField(unique=True, auto_created=True)
+    questionNamber = models.IntegerField(unique=True, auto_created=True)
     text = models.CharField(max_length=255, verbose_name='Вопрос')
     image = models.ImageField(upload_to="photos", blank=True)
-    description = models.CharField(max_length=255)
+    description = models.TextField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
-
     def save(self, *args, **kwargs):
-        self.image = compress_image(self.image, new_width=600)
+        self.image = compress_image(self.image, new_width=500)
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.text
+        return f'{self.questionNamber} - {self.text}'
 
 
 class Answer(models.Model):
-    text = models.CharField(max_length=255, blank=True)
-    answer = models.BooleanField()
+    text = models.CharField(max_length=255, blank=True, null=True)
+    answer = models.BooleanField(default=False)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question')
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.text)
-
-
-
-
-
-
+        return f'{self.question.questionNamber} - {str(self.text)}'

@@ -10,19 +10,22 @@ class AnswerSerializer(serializers.ModelSerializer):
         read_only_fields = ['author', 'question']
 
 
-class QuestionSerializer(serializers.ModelSerializer):
+class QuestionSerializerAnswer(serializers.ModelSerializer):
     answers = AnswerSerializer(source='question', many=True)
 
     class Meta:
         model = Question
         fields = '__all__'
-        read_only_fields = ['author', 'questionNamber', 'description']
+        read_only_fields = ['author', ]
 
-    def create(self, validated_data):
-        description = Question.objects.create(
-            description=validated_data['text'],
-        )
-        return description
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
+        read_only_fields = ['author', ]
+
+
 
 
 

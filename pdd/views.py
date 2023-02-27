@@ -2,7 +2,18 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 
 from .models import Question, Answer
 from .permissions import IsAdminOrReadOnly
-from .serializers import QuestionSerializer, AnswerSerializer
+from .serializers import QuestionSerializer, AnswerSerializer, QuestionSerializerAnswer
+
+
+class QuestionListCrateAPIViewAnswer(ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializerAnswer
+    permission_classes = [IsAdminOrReadOnly, ]
+
+    def perform_create(self, serializer):
+        serializer.save(
+            author=self.request.user.author,
+        )
 
 
 class QuestionListCrateAPIView(ListCreateAPIView):
