@@ -46,3 +46,18 @@ class Answer(models.Model):
 
     def __str__(self):
         return f'{self.question.questionNamber} - {str(self.text)}'
+
+
+class Blog(models.Model):
+    blogNamber = models.IntegerField(unique=True, auto_created=True, blank=True, null=True)
+    title = models.CharField(max_length=255, null=True, blank=True)
+    text = models.TextField(null=True, blank=True)
+    blog_image = models.ImageField(upload_to="photos/blog", blank=True)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        self.blog_image = compress_image(self.blog_image, new_width=400)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.blogNamber} - {self.title}'

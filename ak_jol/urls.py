@@ -31,6 +31,8 @@ urlpatterns = [
     path('api/auth/', include('rest_framework.urls')),
     path('api/auth/token/', obtain_auth_token),
     path('api/register/', AuthorRegisterAPIView.as_view()),
+    path('api/blog/', views.BlogListCreateAPIView.as_view()),
+    path('api/blog/<int:pk>/', views.BlogRetrieveUpdateDestroyAPIView.as_view()),
     path('api/question/', views.QuestionListCrateAPIViewAnswer.as_view(), name='question'),
     path('api/question/answer/', views.QuestionListCrateAPIView.as_view(), name='question'),
     path('api/question/<int:question_id>/', views.QuestionRetrieveUpdateDestroyAPIView.as_view(), name='question_up'),

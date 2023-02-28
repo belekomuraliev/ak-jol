@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Question, Answer
+from .models import Question, Answer, Blog
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -24,6 +24,15 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = '__all__'
         read_only_fields = ['author', ]
+
+
+class BlogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog
+        fields = '__all__'
+        read_only_fields = ['author', ]
+
+
 
 
 

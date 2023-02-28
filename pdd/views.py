@@ -1,8 +1,8 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView,  get_object_or_404
 
-from .models import Question, Answer
+from .models import Question, Answer, Blog
 from .permissions import IsAdminOrReadOnly
-from .serializers import QuestionSerializer, AnswerSerializer, QuestionSerializerAnswer
+from .serializers import QuestionSerializer, AnswerSerializer, QuestionSerializerAnswer, BlogSerializer
 
 
 class QuestionListCrateAPIViewAnswer(ListCreateAPIView):
@@ -58,6 +58,17 @@ class AnswerRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return get_object_or_404(Answer, pk=self.kwargs.get('answer_id'))
+
+
+class BlogListCreateAPIView(ListCreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+class BlogRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer
+
+
 
 
 
