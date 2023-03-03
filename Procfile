@@ -1,0 +1,1 @@
+web: gunicorn ak_jol.wsgi
