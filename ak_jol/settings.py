@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'corsheaders'
 ]
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -134,4 +136,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+
 ]
